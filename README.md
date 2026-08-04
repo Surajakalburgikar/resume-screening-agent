@@ -112,3 +112,16 @@ from src.ranker import rank_candidates
 ranked_candidates = rank_candidates(candidates)
 # [{"name": "John", "final_score": 91.0, "rank": 1}, ...]
 ```
+
+## Match reasons
+
+`src/report.py` produces an evidence-based explanation for each candidate. It
+lists skills matched against the job description, missing skills, and whether
+their stated experience meets the requirement.
+
+```python
+from src.report import generate_match_reason
+
+reason = generate_match_reason(candidate, required_skills, required_experience=3)
+# {"matched_skills": ["Python"], "missing_skills": ["AWS"], "reason": "..."}
+```
