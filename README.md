@@ -99,3 +99,16 @@ final score = 0.7 × similarity + 0.2 × skill match + 0.1 × experience
 and `calculate_weighted_score` for these components. When a job description
 does not state a skill or experience requirement, that component receives 100%
 so candidates are not penalized for a missing criterion.
+
+## Ranking
+
+`src/ranker.py` sorts candidate records by `final_score` and returns copied
+records with a 1-based `rank`. Equal scores are ordered by candidate name for
+consistent results.
+
+```python
+from src.ranker import rank_candidates
+
+ranked_candidates = rank_candidates(candidates)
+# [{"name": "John", "final_score": 91.0, "rank": 1}, ...]
+```
