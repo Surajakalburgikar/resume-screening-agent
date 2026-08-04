@@ -174,3 +174,13 @@ The app accepts a pasted job description and PDF/DOCX resume uploads. It shows a
 progress indicator, ranked candidates, top five matching skills, missing skills,
 minimum-score filtering, candidate details, and CSV/JSON downloads. It also
 writes the latest reports to `output/rankings.csv` and `output/rankings.json`.
+
+## Command-line app
+
+Run the same workflow from the terminal:
+
+```bash
+python main.py --resumes resumes --job-description jd/software_engineer.txt --output output
+```
+
+Use `--no-groq` to disable external Groq analysis and use local extraction only.
