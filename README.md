@@ -44,7 +44,7 @@ Groq is unavailable.
 
 ## PDF parsing
 
-`src/parser.py` reads each `.pdf` file in a resume folder and returns normalized
+`src/parser.py` reads each `.pdf` or `.docx` file in a resume folder and returns normalized
 text keyed by the original file name. It keeps meaningful line breaks for later
 field extraction, while normalizing inline whitespace. Non-PDF files are ignored.
 
@@ -158,7 +158,7 @@ Run the complete screening interface with:
 streamlit run app.py
 ```
 
-The app accepts a pasted job description and PDF resume uploads. It shows a
+The app accepts a pasted job description and PDF/DOCX resume uploads. It shows a
 progress indicator, ranked candidates, top five matching skills, missing skills,
 minimum-score filtering, candidate details, and CSV/JSON downloads. It also
 writes the latest reports to `output/rankings.csv` and `output/rankings.json`.

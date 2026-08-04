@@ -36,14 +36,14 @@ def _ranking_table(candidates: list[dict[str, object]]) -> pd.DataFrame:
 def main() -> None:
     st.set_page_config(page_title="Resume Screening Agent", page_icon="📄", layout="wide")
     st.title("Resume Screening Agent")
-    st.caption("Upload a job description and PDF resumes to generate an explainable ranking.")
+    st.caption("Upload a job description and resume files to generate an explainable ranking.")
 
     job_description = st.text_area("Job description", height=220, placeholder="Paste the job description here...")
-    resumes = st.file_uploader("Resume PDFs", type="pdf", accept_multiple_files=True)
+    resumes = st.file_uploader("Resume files", type=["pdf", "docx"], accept_multiple_files=True)
 
     if st.button("Screen candidates", type="primary"):
         if not job_description.strip() or not resumes:
-            st.error("Provide a job description and at least one PDF resume.")
+            st.error("Provide a job description and at least one PDF or DOCX resume.")
         else:
             progress = st.progress(5, text="Preparing uploaded resumes...")
             try:
