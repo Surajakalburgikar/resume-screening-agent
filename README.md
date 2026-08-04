@@ -48,3 +48,16 @@ Run the parser tests with:
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+## Candidate extraction
+
+`src/extractor.py` converts resume text into a consistent Python dictionary. It
+uses regex and text-pattern heuristics to identify contact details, skills,
+education, stated years of experience, and listed projects.
+
+```python
+from src.extractor import extract_candidate_data
+
+candidate = extract_candidate_data(resume_text)
+# {"name": "John Doe", "skills": ["Python", "SQL"], "experience": 4, ...}
+```
