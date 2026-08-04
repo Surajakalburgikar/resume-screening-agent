@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+import json
+from pathlib import Path
+
+import pandas as pd
 
 
 def _unique_skills(skills: list[str]) -> list[str]:
@@ -65,3 +69,40 @@ def generate_match_reason(
         "experience_summary": experience_summary,
         "reason": reason,
     }
+
+
+def _format_csv_value(value: object) -> object:
+    """Make collection values readable in a flat CSV cell."""
+    if isinstance(value, (list, tuple, set)):
+        return ", ".join(str(item) for item in value)
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False)
+    return value
+
+
+def export_rankings(
+    rankings: list[Mapping[str, object]],
+    output_dir: str | Path = "output",
+) -> tuple[Path, Path]:
+    """Write ranked candidates to ``rankings.csv`` and ``rankings.json``.
+
+    JSON preserves the original record values; CSV converts lists and other
+    collections into readable cell values. The output directory is created when
+    it does not already exist.
+    """
+    destination = Path(output_dir)
+    destination.mkdir(parents=True, exist_ok=True)
+    records = [dict(candidate) for candidate in rankings]
+
+    json_path = destination / "rankings.json"
+    with json_path.open("w", encoding="utf-8") as file:
+        json.dump(records, file, indent=2, ensure_ascii=False)
+
+    csv_path = destination / "rankings.csv"
+    csv_records = [
+        {key: _format_csv_value(value) for key, value in record.items()}
+        for record in records
+    ]
+    pd.DataFrame(csv_records).to_csv(csv_path, index=False)
+
+    return csv_path, json_path

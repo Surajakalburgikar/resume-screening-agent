@@ -125,3 +125,15 @@ from src.report import generate_match_reason
 reason = generate_match_reason(candidate, required_skills, required_experience=3)
 # {"matched_skills": ["Python"], "missing_skills": ["AWS"], "reason": "..."}
 ```
+
+## Export rankings
+
+`export_rankings` writes the final ranked candidate records to the required
+`output/rankings.csv` and `output/rankings.json` files. JSON retains nested
+lists; CSV converts them to comma-separated text for easy review.
+
+```python
+from src.report import export_rankings
+
+csv_path, json_path = export_rankings(ranked_candidates)
+```
