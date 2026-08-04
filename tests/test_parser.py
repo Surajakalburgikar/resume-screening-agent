@@ -29,7 +29,7 @@ class ResumeParserTests(unittest.TestCase):
         self.assertEqual(
             resume_texts,
             {
-                "alice.pdf": "Alice Python Developer",
+                "alice.pdf": "Alice\nPython Developer",
                 "john.pdf": "John Data Engineer",
             },
         )

@@ -7,8 +7,12 @@ import fitz
 
 
 def clean_text(text: str) -> str:
-    """Normalize whitespace in extracted PDF text."""
-    return re.sub(r"\s+", " ", text).strip()
+    """Normalize inline whitespace while preserving meaningful line breaks."""
+    cleaned_lines = [
+        re.sub(r"[\t\f\v ]+", " ", line).strip()
+        for line in text.splitlines()
+    ]
+    return "\n".join(line for line in cleaned_lines if line)
 
 
 def read_resumes(resume_folder: str | Path) -> dict[str, str]:

@@ -34,7 +34,8 @@ pip install -r requirements.txt
 ## PDF parsing
 
 `src/parser.py` reads each `.pdf` file in a resume folder and returns normalized
-text keyed by the original file name. Non-PDF files are ignored.
+text keyed by the original file name. It keeps meaningful line breaks for later
+field extraction, while normalizing inline whitespace. Non-PDF files are ignored.
 
 ```python
 from src.parser import read_resumes
