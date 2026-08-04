@@ -85,6 +85,9 @@ def main() -> None:
                 st.write(candidate["reason"])
                 st.success("Matched: " + (", ".join(candidate["matched_skills"][:5]) or "None"))
                 st.warning("Missing: " + (", ".join(candidate["missing_skills"]) or "None"))
+                for item in candidate["requirement_evidence"]:
+                    if item["matched"]:
+                        st.info(f"{item['requirement']}: {item['evidence']}")
 
 
 if __name__ == "__main__":

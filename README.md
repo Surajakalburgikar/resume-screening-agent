@@ -46,6 +46,10 @@ When enabled in the Streamlit app, Groq performs structured analysis for the
 uploaded JD and every uploaded resume. This external processing is optional in
 the UI; local deterministic extraction remains available when it is disabled.
 
+For each candidate, the app also maps up to five stated JD responsibilities to
+specific resume projects or highlights. This evidence is shown in the candidate
+details view and never changes the transparent weighted score.
+
 ## PDF parsing
 
 `src/parser.py` reads each `.pdf` or `.docx` file in a resume folder and returns normalized

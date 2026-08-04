@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from src.embedder import EmbeddingModel, generate_embeddings
+from src.evidence_matcher import map_requirement_evidence
 from src.extractor import extract_candidate_data
 from src.jd_analyzer import analyze_job_description
 from src.ranker import rank_candidates
@@ -72,6 +73,9 @@ def screen_candidates(
 
     ranked_candidates = rank_candidates(candidates)
     for candidate in ranked_candidates:
+        candidate["requirement_evidence"] = (
+            map_requirement_evidence(job_details, candidate) if use_groq else []
+        )
         candidate.update(
             generate_match_reason(candidate, required_skills, required_experience)
         )

@@ -40,8 +40,10 @@ class ScreeningWorkflowTests(unittest.TestCase):
 
     @patch("src.utils.analyze_resume")
     @patch("src.utils.analyze_job_description")
+    @patch("src.utils.map_requirement_evidence")
     def test_screen_candidates_uses_groq_analysis_when_enabled(
         self,
+        mock_evidence_mapping: object,
         mock_job_analysis: object,
         mock_resume_analysis: object,
     ) -> None:
@@ -61,6 +63,9 @@ class ScreeningWorkflowTests(unittest.TestCase):
             "highlights": [],
             "analysis_source": "groq",
         }
+        mock_evidence_mapping.return_value = [
+            {"requirement": "Build APIs", "matched": True, "evidence": "Built APIs"}
+        ]
 
         rankings = screen_candidates(
             {"alice.pdf": "Alice Doe\nPython FastAPI developer with 4 years of experience."},
@@ -71,7 +76,9 @@ class ScreeningWorkflowTests(unittest.TestCase):
 
         mock_job_analysis.assert_called_once()
         mock_resume_analysis.assert_called_once()
+        mock_evidence_mapping.assert_called_once()
         self.assertEqual(rankings[0]["job_analysis_source"], "groq")
+        self.assertEqual(rankings[0]["requirement_evidence"][0]["evidence"], "Built APIs")
 
 
 if __name__ == "__main__":
