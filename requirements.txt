@@ -3,6 +3,6 @@ sentence-transformers
 PyMuPDF
 pandas
 scikit-learn
-numpy
+numpy>=1.24,<2.2
 groq
 python-docx

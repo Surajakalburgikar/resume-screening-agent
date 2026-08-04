@@ -31,6 +31,9 @@ Use Python 3.10 or later, then install the dependencies:
 pip install -r requirements.txt
 ```
 
+The project constrains NumPy to a version compatible with the SciPy stack used
+by scikit-learn.
+
 To enable Groq-based analysis, add `GROQ_API_KEY` to an ignored local `.env`
 file or set it in the environment. Without a key, the app uses deterministic
 local JD extraction.
