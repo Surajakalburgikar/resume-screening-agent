@@ -73,3 +73,15 @@ from src.embedder import generate_embeddings
 
 resume_embeddings, jd_embedding = generate_embeddings(resume_texts, job_description)
 ```
+
+## Similarity scoring
+
+`src/scorer.py` calculates the cosine similarity between a resume vector and a
+job-description vector, returning a percentage rounded to one decimal place.
+
+```python
+from src.scorer import calculate_similarity
+
+similarity = calculate_similarity(jd_embedding, resume_embeddings["john.pdf"])
+# 87.4
+```
