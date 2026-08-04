@@ -31,4 +31,20 @@ Use Python 3.10 or later, then install the dependencies:
 pip install -r requirements.txt
 ```
 
-Business logic will be added incrementally in later features.
+## PDF parsing
+
+`src/parser.py` reads each `.pdf` file in a resume folder and returns normalized
+text keyed by the original file name. Non-PDF files are ignored.
+
+```python
+from src.parser import read_resumes
+
+resume_texts = read_resumes("resumes")
+# {"john.pdf": "...", "alice.pdf": "..."}
+```
+
+Run the parser tests with:
+
+```bash
+python -m unittest discover -s tests -v
+```
