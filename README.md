@@ -137,3 +137,16 @@ from src.report import export_rankings
 
 csv_path, json_path = export_rankings(ranked_candidates)
 ```
+
+## Streamlit app
+
+Run the complete screening interface with:
+
+```bash
+streamlit run app.py
+```
+
+The app accepts a pasted job description and PDF resume uploads. It shows a
+progress indicator, ranked candidates, top five matching skills, missing skills,
+minimum-score filtering, candidate details, and CSV/JSON downloads. It also
+writes the latest reports to `output/rankings.csv` and `output/rankings.json`.
