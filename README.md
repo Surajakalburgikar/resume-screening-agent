@@ -31,6 +31,17 @@ Use Python 3.10 or later, then install the dependencies:
 pip install -r requirements.txt
 ```
 
+To enable Groq-based analysis, add `GROQ_API_KEY` to an ignored local `.env`
+file or set it in the environment. Without a key, the app uses deterministic
+local JD extraction.
+
+## Structured JD analysis
+
+`src/jd_analyzer.py` uses Groq to extract must-have and preferred skills,
+minimum experience, seniority, responsibilities, and domain from a job
+description. Model output is validated and falls back to local extraction if
+Groq is unavailable.
+
 ## PDF parsing
 
 `src/parser.py` reads each `.pdf` file in a resume folder and returns normalized
