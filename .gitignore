@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.streamlit/secrets.toml
+
+# Keep generated screening results out of version control.
+output/*
+!output/.gitkeep

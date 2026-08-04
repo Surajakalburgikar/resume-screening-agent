@@ -1,0 +1,34 @@
+# Resume Screening Agent
+
+A Python application for screening PDF resumes against a job description and producing ranked candidate reports.
+
+## Project structure
+
+```text
+resume-screening-agent/
+├── app.py                  # Streamlit UI (to be implemented)
+├── main.py                 # CLI entry point (to be implemented)
+├── config.py               # Shared configuration (to be implemented)
+├── requirements.txt
+├── resumes/                # Input PDF resumes
+├── jd/                     # Input job descriptions
+├── output/                 # Generated rankings and reports
+└── src/
+    ├── parser.py           # PDF parsing
+    ├── extractor.py        # Candidate data extraction
+    ├── embedder.py         # Text embeddings
+    ├── scorer.py           # Candidate scoring
+    ├── ranker.py           # Candidate ranking
+    ├── report.py           # Report generation
+    └── utils.py            # Shared helpers
+```
+
+## Setup
+
+Use Python 3.10 or later, then install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Business logic will be added incrementally in later features.
