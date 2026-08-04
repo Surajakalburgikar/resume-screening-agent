@@ -40,6 +40,11 @@ def main() -> None:
 
     job_description = st.text_area("Job description", height=220, placeholder="Paste the job description here...")
     resumes = st.file_uploader("Resume files", type=["pdf", "docx"], accept_multiple_files=True)
+    use_groq = st.checkbox(
+        "Use Groq for deeper JD and resume analysis",
+        value=True,
+        help="When enabled, the uploaded job description and resume text are sent to Groq for structured analysis.",
+    )
 
     if st.button("Screen candidates", type="primary"):
         if not job_description.strip() or not resumes:
@@ -51,7 +56,7 @@ def main() -> None:
                     _save_uploads(resumes, Path(directory))
                     resume_texts = read_resumes(directory)
                     progress.progress(30, text="Extracting candidate details...")
-                    rankings = screen_candidates(resume_texts, job_description)
+                    rankings = screen_candidates(resume_texts, job_description, use_groq=use_groq)
                     progress.progress(85, text="Creating reports...")
                     csv_path, json_path = export_rankings(rankings)
                     st.session_state["rankings"] = rankings
@@ -63,6 +68,8 @@ def main() -> None:
 
     rankings = st.session_state.get("rankings", [])
     if rankings:
+        source = rankings[0].get("job_analysis_source", "local")
+        st.caption(f"Job analysis: {source}")
         minimum_score = st.slider("Minimum score", 0, 100, 0)
         visible_rankings = [
             candidate for candidate in rankings if candidate["final_score"] >= minimum_score

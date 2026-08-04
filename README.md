@@ -42,6 +42,10 @@ minimum experience, seniority, responsibilities, and domain from a job
 description. Model output is validated and falls back to local extraction if
 Groq is unavailable.
 
+When enabled in the Streamlit app, Groq performs structured analysis for the
+uploaded JD and every uploaded resume. This external processing is optional in
+the UI; local deterministic extraction remains available when it is disabled.
+
 ## PDF parsing
 
 `src/parser.py` reads each `.pdf` or `.docx` file in a resume folder and returns normalized
