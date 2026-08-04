@@ -61,3 +61,15 @@ from src.extractor import extract_candidate_data
 candidate = extract_candidate_data(resume_text)
 # {"name": "John Doe", "skills": ["Python", "SQL"], "experience": 4, ...}
 ```
+
+## Embeddings
+
+`src/embedder.py` uses the `all-MiniLM-L6-v2` Sentence Transformers model to
+generate normalized semantic vectors for a job description and each resume.
+The model loads only when `generate_embeddings` is called.
+
+```python
+from src.embedder import generate_embeddings
+
+resume_embeddings, jd_embedding = generate_embeddings(resume_texts, job_description)
+```
