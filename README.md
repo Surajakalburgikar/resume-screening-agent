@@ -85,3 +85,17 @@ from src.scorer import calculate_similarity
 similarity = calculate_similarity(jd_embedding, resume_embeddings["john.pdf"])
 # 87.4
 ```
+
+## Weighted scoring
+
+The final candidate score combines semantic similarity, required-skill coverage,
+and experience against the stated requirement:
+
+```text
+final score = 0.7 × similarity + 0.2 × skill match + 0.1 × experience
+```
+
+`src/scorer.py` exposes `calculate_skill_match`, `calculate_experience_score`,
+and `calculate_weighted_score` for these components. When a job description
+does not state a skill or experience requirement, that component receives 100%
+so candidates are not penalized for a missing criterion.
