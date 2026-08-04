@@ -44,6 +44,15 @@ class MatchReasonTests(unittest.TestCase):
         self.assertIn("no listed required skills", result["reason"])
         self.assertIn("does not state an experience requirement", result["reason"])
 
+    def test_generate_match_reason_recognizes_skill_aliases(self) -> None:
+        result = generate_match_reason(
+            {"name": "Alice", "skills": ["K8s", "Amazon Web Services"]},
+            ["Kubernetes", "AWS"],
+        )
+
+        self.assertEqual(result["matched_skills"], ["Kubernetes", "AWS"])
+        self.assertEqual(result["missing_skills"], [])
+
     def test_export_rankings_writes_csv_and_json(self) -> None:
         rankings = [
             {

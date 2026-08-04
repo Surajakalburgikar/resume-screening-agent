@@ -8,13 +8,15 @@ from pathlib import Path
 
 import pandas as pd
 
+from src.scorer import normalize_skill
+
 
 def _unique_skills(skills: list[str]) -> list[str]:
     """Remove duplicate skill labels while preserving their first occurrence."""
     unique: list[str] = []
     seen: set[str] = set()
     for skill in skills:
-        normalized = skill.casefold()
+        normalized = normalize_skill(skill)
         if normalized not in seen:
             unique.append(skill)
             seen.add(normalized)
@@ -34,9 +36,9 @@ def generate_match_reason(
         skill for skill in candidate.get("skills", []) if isinstance(skill, str)
     ]
     required = _unique_skills(required_skills)
-    candidate_skill_names = {skill.casefold() for skill in candidate_skills}
-    matched_skills = [skill for skill in required if skill.casefold() in candidate_skill_names]
-    missing_skills = [skill for skill in required if skill.casefold() not in candidate_skill_names]
+    candidate_skill_names = {normalize_skill(skill) for skill in candidate_skills}
+    matched_skills = [skill for skill in required if normalize_skill(skill) in candidate_skill_names]
+    missing_skills = [skill for skill in required if normalize_skill(skill) not in candidate_skill_names]
 
     experience = candidate.get("experience", 0)
     if not isinstance(experience, (int, float)) or isinstance(experience, bool):

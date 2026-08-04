@@ -38,6 +38,14 @@ class SimilarityScorerTests(unittest.TestCase):
 
         self.assertEqual(score, 66.7)
 
+    def test_calculate_skill_match_recognizes_common_skill_aliases(self) -> None:
+        score = calculate_skill_match(
+            ["K8s", "Amazon Web Services", "Postgres", "sklearn"],
+            ["Kubernetes", "AWS", "PostgreSQL", "scikit-learn"],
+        )
+
+        self.assertEqual(score, 100.0)
+
     def test_calculate_experience_score_caps_at_100(self) -> None:
         self.assertEqual(calculate_experience_score(6, 4), 100.0)
         self.assertEqual(calculate_experience_score(2, 4), 50.0)

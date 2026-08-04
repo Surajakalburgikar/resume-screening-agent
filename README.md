@@ -116,6 +116,10 @@ and `calculate_weighted_score` for these components. When a job description
 does not state a skill or experience requirement, that component receives 100%
 so candidates are not penalized for a missing criterion.
 
+Skill matching recognizes common equivalents such as `K8s`/`Kubernetes`,
+`AWS`/`Amazon Web Services`, `Postgres`/`PostgreSQL`, and
+`sklearn`/`scikit-learn`.
+
 ## Ranking
 
 `src/ranker.py` sorts candidate records by `final_score` and returns copied

@@ -10,6 +10,29 @@ SIMILARITY_WEIGHT = 0.7
 SKILL_MATCH_WEIGHT = 0.2
 EXPERIENCE_WEIGHT = 0.1
 
+SKILL_ALIASES = {
+    "amazon web services": "aws",
+    "aws cloud": "aws",
+    "k8s": "kubernetes",
+    "google cloud platform": "gcp",
+    "google cloud": "gcp",
+    "postgres": "postgresql",
+    "react.js": "react",
+    "nodejs": "node.js",
+    "node js": "node.js",
+    "js": "javascript",
+    "ts": "typescript",
+    "sklearn": "scikit-learn",
+    "machine-learning": "machine learning",
+    "natural language processing": "nlp",
+}
+
+
+def normalize_skill(skill: str) -> str:
+    """Return a comparison-friendly canonical form for a skill label."""
+    normalized = " ".join(skill.casefold().split())
+    return SKILL_ALIASES.get(normalized, normalized)
+
 
 def calculate_similarity(
     jd_embedding: np.ndarray,
@@ -40,8 +63,8 @@ def calculate_skill_match(
     required_skills: list[str],
 ) -> float:
     """Return the percentage of required skills held by a candidate."""
-    required = {skill.casefold() for skill in required_skills}
-    candidate = {skill.casefold() for skill in candidate_skills}
+    required = {normalize_skill(skill) for skill in required_skills}
+    candidate = {normalize_skill(skill) for skill in candidate_skills}
     if not required:
         return 100.0
     return round(len(required & candidate) / len(required) * 100, 1)
